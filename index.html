@@ -271,28 +271,66 @@
     </section>
 
     <!-- Sliding Text Section -->
-    <section
-      class="relative py-20 overflow-hidden bg-stone-100 border-y border-stone-200"
-    >
-      <div class="flex whitespace-nowrap overflow-hidden">
-        <div
-          class="animate-marquee flex gap-12 text-7xl md:text-9xl font-blue-500 uppercase tracking-tighter text-stone-300/50"
-        >
-          <span>Eco Friendly • Handmade • Custom • Sustainable • Affordable</span>
-          <span>Eco Friendly • Handmade • Custom • Sustainable • Affordable</span>
-          <span>Eco Friendly • Handmade • Custom • Sustainable • Affordable</span>
+    <section class="relative py-28 overflow-hidden bg-stone-50 border-y border-stone-200/50">
+      <!-- Background Decorative Blobs -->
+      <div class="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-emerald-100/30 rounded-full filter blur-[100px] pointer-events-none"></div>
+      <div class="absolute top-1/2 right-1/4 -translate-y-1/2 w-96 h-96 bg-amber-100/20 rounded-full filter blur-[100px] pointer-events-none"></div>
+
+      <!-- Edge Fade Mask -->
+      <div class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-stone-50 to-transparent z-20 pointer-events-none"></div>
+      <div class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-stone-50 to-transparent z-20 pointer-events-none"></div>
+
+      <div class="relative z-10 space-y-12">
+        <!-- Row 1: Left to Right -->
+        <div class="flex whitespace-nowrap overflow-hidden group">
+          <div id="marquee-row-1" class="flex gap-12 text-6xl md:text-8xl font-black uppercase tracking-tighter">
+            <span class="text-emerald-800">Eco Friendly</span>
+            <span class="text-transparent text-stroke-emerald">•</span>
+            <span class="text-transparent text-stroke-stone">Handmade</span>
+            <span class="text-transparent text-stroke-emerald">•</span>
+            <span class="text-stone-800">Sustainable</span>
+            <span class="text-transparent text-stroke-stone">•</span>
+            <span class="text-emerald-900">CaryJute</span>
+            <span class="text-transparent text-stroke-emerald">•</span>
+            <!-- Repeat for seamless loop -->
+            <span class="text-emerald-800">Eco Friendly</span>
+            <span class="text-transparent text-stroke-emerald">•</span>
+            <span class="text-transparent text-stroke-stone">Handmade</span>
+            <span class="text-transparent text-stroke-emerald">•</span>
+            <span class="text-stone-800">Sustainable</span>
+            <span class="text-transparent text-stroke-stone">•</span>
+            <span class="text-emerald-900">CaryJute</span>
+            <span class="text-transparent text-stroke-emerald">•</span>
+          </div>
+        </div>
+
+        <!-- Row 2: Right to Left -->
+        <div class="flex whitespace-nowrap overflow-hidden group">
+          <div id="marquee-row-2" class="flex gap-12 text-6xl md:text-8xl font-black uppercase tracking-tighter">
+            <span class="text-transparent text-stroke-stone">CaryJute</span>
+            <span class="text-transparent text-stroke-emerald">•</span>
+            <span class="text-stone-800">Sustainable</span>
+            <span class="text-transparent text-stroke-stone">•</span>
+            <span class="text-transparent text-stroke-emerald">Handmade</span>
+            <span class="text-transparent text-stroke-stone">•</span>
+            <span class="text-emerald-800">Eco Friendly</span>
+            <span class="text-transparent text-stroke-emerald">•</span>
+            <!-- Repeat for seamless loop -->
+            <span class="text-transparent text-stroke-stone">CaryJute</span>
+            <span class="text-transparent text-stroke-emerald">•</span>
+            <span class="text-stone-800">Sustainable</span>
+            <span class="text-transparent text-stroke-stone">•</span>
+            <span class="text-transparent text-stroke-emerald">Handmade</span>
+            <span class="text-transparent text-stroke-stone">•</span>
+            <span class="text-emerald-800">Eco Friendly</span>
+            <span class="text-transparent text-stroke-emerald">•</span>
+          </div>
         </div>
       </div>
-      <!-- Foreground Layer Overlay (Optional: creates the "partially behind" effect) -->
-      <div
-        class="absolute inset-0 pointer-events-none flex items-center justify-center"
-      >
-        <!-- <div class="max-w-7xl mx-auto px-6 text-center">
-          <span
-            class="text-emerald-900/10 text-[20vw] font-bold select-none leading-none"
-            >CARYJUTE</span
-          >
-        </div> -->
+
+      <!-- Centered Logo Depth Layer -->
+      <div class="absolute inset-0 pointer-events-none flex items-center justify-center z-15">
+        <span class="text-stone-900/5 text-[25vw] font-bold select-none leading-none blur-[2px]">CJ</span>
       </div>
     </section>
 
@@ -382,11 +420,11 @@
             <!-- Stats Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 border-t border-stone-200 pt-12">
               <div class="flex flex-col">
-                <span class="text-3xl md:text-4xl font-bold text-emerald-800 mb-2" data-count="15">0</span>
+                <span class="text-3xl md:text-4xl font-bold text-emerald-800 mb-2" data-count="15">15+</span>
                 <span class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Years Experience</span>
               </div>
               <div class="flex flex-col">
-                <span class="text-3xl md:text-4xl font-bold text-emerald-800 mb-2" data-count="14000">0</span>
+                <span class="text-3xl md:text-4xl font-bold text-emerald-800 mb-2" data-count="14000">14000+</span>
                 <span class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Bags Produced Daily</span>
               </div>
               <div class="flex flex-col">
@@ -740,7 +778,7 @@
                 9339828230
               </a>
               <a
-                href="mailto:caryjute@gmail.com"
+                href="mailto:affanasgar8@gmail.com"
                 class="flex items-center gap-3 hover:text-emerald-400 transition-colors duration-300"
               >
                 <svg
@@ -757,9 +795,89 @@
                     d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                   />
                 </svg>
-                caryjute@gmail.com
+                affanasgar8@gmail.com
               </a>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contact" class="py-24 bg-neutral-50 relative overflow-hidden">
+      <!-- Background Texture Overlay -->
+      <div class="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')]"></div>
+      
+      <div class="max-w-3xl mx-auto px-6 relative z-10">
+        <div class="text-center mb-16 reveal">
+          <span class="text-emerald-800 font-bold tracking-[0.3em] text-xs uppercase mb-4 block">Contact Us</span>
+          <h2 class="text-4xl md:text-5xl font-bold text-slate-900 leading-tight">Start Your Sustainable Journey</h2>
+        </div>
+
+        <div class="bg-white p-8 md:p-12 rounded-[2rem] shadow-2xl shadow-stone-200/50 reveal animation-delay-200 border border-stone-100">
+          <form 
+            action="https://formspree.io/f/xkoprrzb" 
+            method="POST" 
+            id="contact-form"
+            class="space-y-8"
+          >
+            <!-- Name Field -->
+            <div class="space-y-2">
+              <label for="name" class="text-sm font-bold text-slate-700 uppercase tracking-widest ml-1">Your Name</label>
+              <input 
+                type="text" 
+                name="name" 
+                id="name" 
+                required 
+                placeholder="John Doe"
+                class="w-full px-6 py-4 bg-stone-50 border border-stone-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-emerald-800/20 focus:border-emerald-800 transition-all duration-300 placeholder:text-stone-400 text-slate-900"
+              >
+            </div>
+
+            <!-- Email Field -->
+            <div class="space-y-2">
+              <label for="email" class="text-sm font-bold text-slate-700 uppercase tracking-widest ml-1">Email Address</label>
+              <input 
+                type="email" 
+                name="email" 
+                id="email" 
+                required 
+                placeholder="john@example.com"
+                class="w-full px-6 py-4 bg-stone-50 border border-stone-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-emerald-800/20 focus:border-emerald-800 transition-all duration-300 placeholder:text-stone-400 text-slate-900"
+              >
+            </div>
+
+            <!-- Message Field -->
+            <div class="space-y-2">
+              <label for="message" class="text-sm font-bold text-slate-700 uppercase tracking-widest ml-1">Your Message</label>
+              <textarea 
+                name="message" 
+                id="message" 
+                rows="5" 
+                required 
+                placeholder="How can we help you?"
+                class="w-full px-6 py-4 bg-stone-50 border border-stone-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-emerald-800/20 focus:border-emerald-800 transition-all duration-300 placeholder:text-stone-400 text-slate-900 resize-none"
+              ></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button 
+              type="submit" 
+              class="w-full group relative px-10 py-5 bg-gradient-to-r from-emerald-800 to-stone-800 text-white font-bold rounded-2xl hover:shadow-2xl hover:shadow-emerald-900/20 hover:scale-[1.02] active:scale-95 transition-all duration-300 overflow-hidden overflow-hidden"
+            >
+              <span class="relative z-10 flex items-center justify-center gap-3">
+                Send Message
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </span>
+              <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </button>
+          </form>
+
+          <!-- Success Message (Hidden by default) -->
+          <div id="form-status" class="hidden mt-8 p-6 rounded-2xl text-center">
+            <p id="status-message" class="font-bold"></p>
           </div>
         </div>
       </div>

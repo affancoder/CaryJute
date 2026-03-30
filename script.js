@@ -352,6 +352,67 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleButtons(); // Initial call
     }
 
+    // --- Dynamic Sliding Text ---
+    const row1 = document.getElementById('marquee-row-1');
+    const row2 = document.getElementById('marquee-row-2');
+    
+    if (row1 && row2) {
+        let currentPos1 = 0;
+        let currentPos2 = -50; // Start row 2 offset for contrast
+        let baseSpeed = 0.05; // Very slow base speed
+        let scrollSpeed = 0;
+        let lastScrollY = window.scrollY;
+        let isHoveringMarquee = false;
+
+        // Mouse interaction for desktop
+        let mouseXPercent = 0.5;
+        if (!isTouchDevice) {
+            window.addEventListener('mousemove', (e) => {
+                mouseXPercent = e.clientX / window.innerWidth;
+            }, { passive: true });
+        }
+
+        const marqueeContainers = document.querySelectorAll('.animate-marquee-slow, .animate-marquee-reverse-slow, #marquee-row-1, #marquee-row-2');
+        marqueeContainers.forEach(container => {
+            const parent = container.parentElement;
+            parent.addEventListener('mouseenter', () => isHoveringMarquee = true);
+            parent.addEventListener('mouseleave', () => isHoveringMarquee = false);
+        });
+
+        const animateMarquee = () => {
+            if (!isHoveringMarquee) {
+                // 1. Calculate Scroll Speed Influence
+                const currentScrollY = window.scrollY;
+                const scrollDiff = Math.abs(currentScrollY - lastScrollY);
+                scrollSpeed += (scrollDiff * 0.1 - scrollSpeed) * 0.1; // Smooth it
+                lastScrollY = currentScrollY;
+
+                // 2. Mouse Position Influence (Desktop only)
+                const mouseFactor = isTouchDevice ? 1 : (0.5 + mouseXPercent);
+
+                // 3. Final Speed Calculation
+                const finalSpeed = (baseSpeed + scrollSpeed * 0.05) * mouseFactor;
+
+                // Update Positions
+                currentPos1 -= finalSpeed;
+                currentPos2 += finalSpeed;
+
+                // Seamless loop at 50% (since we repeat content once in HTML)
+                if (currentPos1 <= -50) currentPos1 = 0;
+                if (currentPos2 >= 0) currentPos2 = -50;
+
+                row1.style.transform = `translate3d(${currentPos1}%, 0, 0)`;
+                row2.style.transform = `translate3d(${currentPos2}%, 0, 0)`;
+            }
+
+            // Decay scroll speed influence when idle
+            scrollSpeed *= 0.95;
+
+            requestAnimationFrame(animateMarquee);
+        };
+        animateMarquee();
+    }
+
     // --- Product Modal ---
     const productModal = document.getElementById('product-modal');
     const modalImage = document.getElementById('modal-image');
@@ -407,6 +468,53 @@ document.addEventListener('DOMContentLoaded', () => {
             modalImage.classList.toggle('cursor-zoom-in', !isZoomed);
             modalImage.classList.toggle('cursor-zoom-out', isZoomed);
             zoomOverlay.classList.toggle('active', isZoomed);
+        });
+    }
+
+    // --- Contact Form Handling ---
+    const contactForm = document.getElementById('contact-form');
+    const formStatus = document.getElementById('form-status');
+    const statusMessage = document.getElementById('status-message');
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(contactForm);
+            
+            // UI Feedback during submission
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="flex items-center justify-center gap-2"><svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Sending...</span>';
+
+            try {
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    contactForm.reset();
+                    contactForm.classList.add('hidden');
+                    formStatus.classList.remove('hidden');
+                    formStatus.classList.add('bg-emerald-50', 'border', 'border-emerald-100');
+                    statusMessage.innerText = "Thank you! Your message has been sent successfully.";
+                    statusMessage.classList.add('text-emerald-800');
+                } else {
+                    const data = await response.json();
+                    throw new Error(data.errors?.[0]?.message || "Form submission failed.");
+                }
+            } catch (error) {
+                formStatus.classList.remove('hidden');
+                formStatus.classList.add('bg-red-50', 'border', 'border-red-100');
+                statusMessage.innerText = "Oops! Something went wrong. Please try again later.";
+                statusMessage.classList.add('text-red-800');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+            }
         });
     }
 

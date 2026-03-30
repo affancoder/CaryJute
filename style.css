@@ -221,6 +221,21 @@ a, button, .product-card, .video-parallax {
     min-width: fit-content;
 }
 
+/* Sliding Text Section Enhancements */
+.text-stroke-emerald {
+    -webkit-text-stroke: 1px #065f46;
+}
+.text-stroke-stone {
+    -webkit-text-stroke: 1px #78716c;
+}
+
+#marquee-row-1, #marquee-row-2 {
+    will-change: transform;
+    display: flex;
+    white-space: nowrap;
+    min-width: fit-content;
+}
+
 /* Hide Scrollbar for Product Slider */
 .hide-scrollbar::-webkit-scrollbar {
     display: none;
