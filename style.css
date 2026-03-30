@@ -142,12 +142,26 @@ a, button, .product-card, .video-parallax {
 
 /* Floating Animation */
 @keyframes float-slow {
-    0%, 100% { transform: translateY(0) rotate(0); }
-    50% { transform: translateY(-20px) rotate(1deg); }
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(0); }
+    50% { transform: translate3d(0, -20px, 0) rotate(1deg); }
+}
+
+@keyframes float-hero {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+    33% { transform: translate3d(10px, -30px, 0) rotate(2deg); }
+    66% { transform: translate3d(-10px, -15px, 0) rotate(-1deg); }
 }
 
 .animate-float {
     animation: float-slow 8s ease-in-out infinite;
+}
+
+.animate-float-hero {
+    animation: float-hero 10s ease-in-out infinite;
+}
+
+.animate-float-slow {
+    animation: float-slow 12s ease-in-out infinite;
 }
 
 /* Video Parallax Container */

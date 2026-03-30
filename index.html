@@ -162,67 +162,88 @@
     <!-- Hero Section -->
     <section
       id="hero"
-      class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-stone-100 via-stone-200 to-stone-300 py-20"
+      class="relative min-h-screen flex items-center justify-center overflow-hidden bg-stone-50 py-20"
     >
-      <!-- Animated Background Blobs -->
+      <!-- Premium Background Gradient Blob -->
       <div
-        class="absolute top-0 -left-4 w-72 h-72 bg-emerald-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"
-      ></div>
-      <div
-        class="absolute top-0 -right-4 w-72 h-72 bg-amber-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"
-      ></div>
-      <div
-        class="absolute -bottom-8 left-20 w-72 h-72 bg-stone-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50rem] h-[50rem] bg-gradient-to-br from-emerald-100/40 to-amber-100/30 rounded-full filter blur-[120px] pointer-events-none opacity-60 animate-blob"
       ></div>
 
-      <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
-        <div class="max-w-4xl mx-auto parallax-content">
-          <span
-            class="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-emerald-800 uppercase bg-emerald-100/50 rounded-full backdrop-blur-sm border border-emerald-200/50"
-          >
-            Eco-Conscious Fashion
-          </span>
-          <h1
-            class="text-6xl md:text-8xl font-extrabold leading-tight tracking-tight text-slate-900 mb-8 drop-shadow-sm"
-          >
-            Sustainable Luxury in <br class="hidden md:block" />
-            <span class="text-emerald-800">Every Thread</span>
-          </h1>
-          <p
-            class="text-xl md:text-2xl text-slate-700 mb-12 leading-relaxed max-w-2xl mx-auto font-light"
-          >
-            Elevate your lifestyle with our premium jute collections. Crafted
-            with passion, worn with purpose, and kind to the Earth.
-          </p>
-          <div
-            class="flex flex-col sm:flex-row gap-6 justify-center items-center"
-          >
-            <a
-              href="#products"
-              class="group relative px-10 py-5 bg-emerald-800 text-white font-bold rounded-full hover:bg-emerald-900 transition-all duration-300 shadow-xl shadow-emerald-200/50 overflow-hidden"
+      <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          <!-- Text Content (Left) -->
+          <div class="parallax-content text-left">
+            <span
+              class="inline-block px-5 py-2 mb-8 text-[10px] font-bold tracking-[0.4em] text-emerald-900 uppercase bg-emerald-100/40 rounded-full backdrop-blur-md border border-emerald-200/30 reveal"
             >
-              <span class="relative z-10">Shop Now</span>
-              <div
-                class="absolute inset-0 h-full w-full scale-0 rounded-full bg-white/10 transition-all duration-300 group-hover:scale-100"
-              ></div>
-            </a>
-            <a
-              href="#about"
-              class="px-10 py-5 bg-white/40 backdrop-blur-md border border-white/60 text-emerald-900 font-bold rounded-full hover:bg-white/60 transition-all duration-300"
+              THE FUTURE OF JUTE
+            </span>
+            <h1
+              class="text-5xl md:text-7xl font-extrabold leading-[1.1] tracking-tighter text-slate-900 mb-8 reveal animation-delay-200"
             >
-              Our Story
-            </a>
+              Sustainable Luxury <br/>
+              <span class="text-emerald-800">In Every Thread</span>
+            </h1>
+            <p
+              class="text-lg md:text-xl text-slate-600 mb-12 leading-relaxed max-w-lg font-light reveal animation-delay-400"
+            >
+              Elevate your lifestyle with our premium, hand-crafted jute collections. 
+              Meticulously woven for the conscious modern soul, blending 15 years of 
+              craftsmanship with eco-luxury aesthetics.
+            </p>
+            <div
+              class="flex flex-col sm:flex-row gap-6 reveal animation-delay-600"
+            >
+              <a
+                href="#products"
+                class="group relative px-10 py-5 bg-gradient-to-r from-emerald-800 to-stone-700 text-white font-bold rounded-xl hover:shadow-2xl hover:shadow-emerald-900/20 transition-all duration-300 overflow-hidden text-center"
+              >
+                <span class="relative z-10">Explore Collection</span>
+                <div
+                  class="absolute inset-0 h-full w-full scale-0 rounded-full bg-white/10 transition-all duration-300 group-hover:scale-100"
+                ></div>
+              </a>
+              <a
+                href="#about"
+                class="px-10 py-5 bg-white/40 backdrop-blur-md border border-stone-200 text-slate-900 font-bold rounded-xl hover:bg-white/60 transition-all duration-300 text-center"
+              >
+                Our Story
+              </a>
+            </div>
+          </div>
+
+          <!-- Visual Content (Right) -->
+          <div class="relative flex justify-center items-center lg:justify-end reveal animation-delay-400">
+            <!-- Large Gradient Blob behind image -->
+            <div class="absolute inset-0 bg-gradient-to-br from-emerald-200/20 to-amber-200/30 blur-[80px] rounded-full transform scale-110 pointer-events-none"></div>
+            
+            <!-- Main Product Image with Floating Animation -->
+            <div class="relative z-20 animate-float-hero w-full max-w-md">
+              <img 
+                src="/images/college-pic.jpeg" 
+                alt="Premium Jute Bag" 
+                class="w-full h-auto shadow-2xl rounded-3xl object-cover"
+                loading="eager"
+              />
+              
+              <!-- Subtle Shadow Base -->
+              <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 w-3/4 h-10 bg-black/5 blur-3xl rounded-full"></div>
+            </div>
+
+            <!-- Decorative Accents -->
+            <div class="absolute -top-10 -right-10 w-32 h-32 border border-emerald-800/10 rounded-full animate-float animation-delay-2000 hidden md:block"></div>
+            <div class="absolute bottom-10 -left-10 w-24 h-24 bg-stone-100/80 backdrop-blur-sm rounded-3xl rotate-12 animate-float-slow hidden md:block border border-white/50"></div>
           </div>
         </div>
       </div>
 
       <!-- Scroll Indicator -->
       <div
-        class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50"
+        class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 transition-opacity duration-1000"
       >
         <span
           class="text-[10px] font-bold tracking-[0.2em] uppercase text-emerald-900"
-          >Scroll</span
+          >Discover</span
         >
         <div
           class="w-px h-12 bg-gradient-to-b from-emerald-800 to-transparent"
@@ -497,7 +518,7 @@
               </div>
             </div>
             <h3 class="text-lg font-bold text-slate-900 mb-1">Classic Jute Tote</h3>
-            <p class="text-emerald-800 font-medium">INR 149.00</p>
+            <p class="text-emerald-800 font-medium">INR 159.00</p>
           </div>
 
           <!-- Product Card 2 -->
@@ -511,7 +532,7 @@
               </div>
             </div>
             <h3 class="text-lg font-bold text-slate-900 mb-1">Eco-Fiber Backpack</h3>
-            <p class="text-emerald-800 font-medium">INR 399.00</p>
+            <p class="text-emerald-800 font-medium">INR 429.00</p>
           </div>
 
           <!-- Product Card 3 -->
@@ -525,7 +546,7 @@
               </div>
             </div>
             <h3 class="text-lg font-bold text-slate-900 mb-1">Minimalist Pouch</h3>
-            <p class="text-emerald-800 font-medium">INR 549.00</p>
+            <p class="text-emerald-800 font-medium">INR 649.00</p>
           </div>
 
           <!-- Product Card 4 -->
@@ -539,7 +560,7 @@
               </div>
             </div>
             <h3 class="text-lg font-bold text-slate-900 mb-1">Travel Weekender</h3>
-            <p class="text-emerald-800 font-medium">INR 1,200.00</p>
+            <p class="text-emerald-800 font-medium">INR 900.00</p>
           </div>
 
           <!-- Product Card 5 -->
@@ -581,7 +602,7 @@
               </div>
             </div>
             <h3 class="text-lg font-bold text-slate-900 mb-1">Natural Fiber Tote</h3>
-            <p class="text-emerald-800 font-medium">INR 159.00</p>
+            <p class="text-emerald-800 font-medium">INR 199.00</p>
           </div>
 
           <!-- Product Card 8 -->
@@ -595,7 +616,7 @@
               </div>
             </div>
             <h3 class="text-lg font-bold text-slate-900 mb-1">Minimalist Jute Bag</h3>
-            <p class="text-emerald-800 font-medium">INR 99.00</p>
+            <p class="text-emerald-800 font-medium">INR 149.00</p>
           </div>
         </div>
       </div>
