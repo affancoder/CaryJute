@@ -180,6 +180,51 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- Product Slider ---
+    const productSlider = document.getElementById('product-slider');
+    const slideLeft = document.getElementById('slide-left');
+    const slideRight = document.getElementById('slide-right');
+
+    if (productSlider && slideLeft && slideRight) {
+        const getScrollAmount = () => {
+            const card = productSlider.querySelector('.product-card');
+            if (!card) return 400; // Fallback
+            const cardWidth = card.offsetWidth;
+            const gap = 32; // gap-8 = 2rem = 32px
+            return (cardWidth + gap) * 1.5; // Scroll roughly 1.5 cards
+        };
+
+        slideLeft.addEventListener('click', () => {
+            productSlider.scrollBy({
+                left: -getScrollAmount(),
+                behavior: 'smooth'
+            });
+        });
+
+        slideRight.addEventListener('click', () => {
+            productSlider.scrollBy({
+                left: getScrollAmount(),
+                behavior: 'smooth'
+            });
+        });
+
+        // Optional: Hide/Show buttons based on scroll position
+        const toggleButtons = () => {
+            const isAtStart = productSlider.scrollLeft <= 10;
+            const isAtEnd = productSlider.scrollLeft + productSlider.clientWidth >= productSlider.scrollWidth - 10;
+            
+            slideLeft.style.opacity = isAtStart ? '0.3' : '1';
+            slideLeft.style.pointerEvents = isAtStart ? 'none' : 'auto';
+            
+            slideRight.style.opacity = isAtEnd ? '0.3' : '1';
+            slideRight.style.pointerEvents = isAtEnd ? 'none' : 'auto';
+        };
+
+        productSlider.addEventListener('scroll', toggleButtons);
+        window.addEventListener('resize', toggleButtons);
+        toggleButtons(); // Initial call
+    }
+
     // --- Smooth Scroll ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {

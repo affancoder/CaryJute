@@ -196,6 +196,15 @@ a, button, .product-card {
     min-width: fit-content;
 }
 
+/* Hide Scrollbar for Product Slider */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
 /* Product Card Custom Shadow */
 .product-card:hover {
     transform: translateY(-12px);
