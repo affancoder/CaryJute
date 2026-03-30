@@ -1,0 +1,206 @@
+/* Hide Default Cursor */
+* {
+    cursor: none !important;
+}
+
+/* Custom Cursor Styling */
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #065f46; /* emerald-800 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none;
+    transition: width 0.3s, height 0.3s, background-color 0.3s;
+}
+
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #065f46; /* emerald-800 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 9998;
+    pointer-events: none;
+    transition: width 0.3s, height 0.3s, border 0.3s, background-color 0.3s;
+}
+
+/* Hover State */
+.cursor-hover .cursor-dot {
+    width: 12px;
+    height: 12px;
+    background-color: transparent;
+    border: 1px solid #065f46;
+}
+
+.cursor-hover .cursor-outline {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(6, 95, 70, 0.1); /* emerald-800 with low opacity */
+    border: 1px solid transparent;
+}
+
+/* Custom Navbar Underline Animation */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #4f46e5; /* indigo-600 */
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Mobile Menu Animation */
+#mobile-menu.active {
+    display: block;
+    transform: scaleY(1);
+    opacity: 1;
+}
+
+/* Smooth Transition for Navbar background */
+#navbar.scrolled {
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(12px);
+    border-bottom-color: rgba(226, 232, 240, 0.8); /* slate-200 */
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+/* Hero Blob Animation */
+@keyframes blob {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0px, 0px) scale(1); }
+}
+
+.animate-blob {
+    animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+    animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+    animation-delay: 4s;
+}
+
+/* Hero Text Shadow */
+.drop-shadow-sm {
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Parallax Styles */
+.parallax-bg {
+    height: 120%; /* Taller than container for movement */
+    top: -10%;
+    will-change: transform;
+}
+
+.parallax-text {
+    will-change: transform;
+}
+
+.drop-shadow-lg {
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Smooth Hover & Transitions Global */
+a, button, .product-card, .nav-link, .cursor-dot, .cursor-outline, .animate-blob {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Magnetic Element Reset */
+a, button, .product-card {
+    will-change: transform;
+}
+
+/* Reveal Animation Refined */
+.reveal {
+    position: relative;
+    transform: translateY(40px);
+    opacity: 0;
+    transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1), opacity 1s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, opacity;
+}
+
+.reveal.active {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.animation-delay-200 {
+    transition-delay: 0.2s;
+}
+
+.animation-delay-400 {
+    transition-delay: 0.4s;
+}
+
+/* Scroll to Top Button Effects */
+#scroll-top {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#scroll-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    animation: float 4s ease-in-out infinite;
+}
+
+#scroll-top:hover {
+    box-shadow: 0 0 25px rgba(6, 95, 70, 0.5);
+    transform: scale(1.1) translateY(-5px);
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes gradient-slow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.animate-gradient-slow {
+    background-size: 200% 200%;
+    animation: gradient-slow 12s ease infinite;
+}
+
+/* Sliding Text Marquee Animation */
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-33.333%); }
+}
+
+.animate-marquee {
+    animation: marquee 40s linear infinite;
+    min-width: fit-content;
+}
+
+/* Product Card Custom Shadow */
+.product-card:hover {
+    transform: translateY(-12px);
+}
+
+.product-card {
+    will-change: transform;
+}
