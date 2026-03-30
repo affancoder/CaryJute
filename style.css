@@ -11,11 +11,11 @@
     position: fixed;
     top: 0;
     left: 0;
-    transform: translate(-50%, -50%);
     border-radius: 50%;
     z-index: 9999;
     pointer-events: none;
-    will-change: left, top;
+    will-change: transform;
+    transform: translate3d(-50%, -50%, 0);
 }
 
 .cursor-outline {
@@ -25,11 +25,11 @@
     position: fixed;
     top: 0;
     left: 0;
-    transform: translate(-50%, -50%);
     border-radius: 50%;
     z-index: 9998;
     pointer-events: none;
-    will-change: left, top;
+    will-change: transform;
+    transform: translate3d(-50%, -50%, 0);
 }
 
 /* Hover State */
@@ -123,15 +123,16 @@
 /* Smooth Hover & Transitions Global */
 a, button, .product-card, .nav-link, .animate-blob, .animate-float {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
 }
 
 .cursor-dot, .cursor-outline {
     /* Transitions only for scale/color, NOT for position */
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
                 height 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-                background-color 0.3s ease, 
-                border 0.3s ease, 
-                opacity 0.3s ease;
+                background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                border 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Magnetic Element Reset */
@@ -157,14 +158,14 @@ a, button, .product-card, .video-parallax {
 /* Reveal Animation Refined */
 .reveal {
     position: relative;
-    transform: translateY(40px);
+    transform: translate3d(0, 40px, 0);
     opacity: 0;
     transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1), opacity 1s cubic-bezier(0.22, 1, 0.36, 1);
     will-change: transform, opacity;
 }
 
 .reveal.active {
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
     opacity: 1;
 }
 
@@ -273,3 +274,34 @@ a, button, .product-card, .video-parallax {
 body.modal-open {
     overflow: hidden;
 }
+
+/* --- Premium Mobile Interactions --- */
+
+/* 1. Tap Feedback */
+.tap-active {
+    transform: scale(0.95) !important;
+}
+
+/* 2. Mobile Product Card Tap State */
+@media (max-width: 768px) {
+    .product-card.tap-reveal .absolute.inset-0.bg-stone-900\/60 {
+        opacity: 1;
+    }
+    .product-card.tap-reveal .view-product-btn {
+        transform: scale(1);
+    }
+    .product-card.tap-reveal img {
+        transform: scale(1.05);
+    }
+}
+
+/* 3. Touch Device Cursor Handling */
+@media (hover: none) and (pointer: coarse) {
+    .cursor-dot, .cursor-outline {
+        display: none !important;
+    }
+    * {
+        cursor: auto !important;
+    }
+}
+

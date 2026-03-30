@@ -17,77 +17,128 @@ document.addEventListener('DOMContentLoaded', () => {
     let dotY = 0;
     let outlineX = 0;
     let outlineY = 0;
+    const isMobileQuery = window.matchMedia('(max-width: 768px)');
+    let isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || isMobileQuery.matches;
 
     // Increased speed (smoothing factor) to reduce lag
     const speed = 0.25;
 
-    window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
+    if (!isTouchDevice) {
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        }, { passive: true });
+
+        const animateCursor = () => {
+            // Smoothly follow for dot (faster)
+            dotX += (mouseX - dotX) * 0.8;
+            dotY += (mouseY - dotY) * 0.8;
+            
+            cursorDot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
+
+            // Smoothly follow for outline (slightly slower but fast)
+            const distX = mouseX - outlineX;
+            const distY = mouseY - outlineY;
+
+            outlineX += distX * speed;
+            outlineY += distY * speed;
+
+            cursorOutline.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0) translate(-50%, -50%)`;
+
+            // Subtle Mouse-Parallax for Hero Blobs
+            heroBlobs.forEach((blob, index) => {
+                const factor = (index + 1) * 35;
+                const x = (mouseX - window.innerWidth / 2) / factor;
+                const y = (mouseY - window.innerHeight / 2) / factor;
+                
+                blob.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+            });
+
+            requestAnimationFrame(animateCursor);
+        };
+        animateCursor();
+    } else {
+        // Hide custom cursor elements if on touch device
+        if (cursorDot) cursorDot.style.display = 'none';
+        if (cursorOutline) cursorOutline.style.display = 'none';
+        document.body.style.cursor = 'auto';
+    }
+
+    // --- Premium Mobile Interactions ---
+    const interactiveElements = document.querySelectorAll('a, button, .product-card');
+
+    interactiveElements.forEach(el => {
+        // 1. Tap Feedback (Scale down on touch)
+        el.addEventListener('touchstart', () => {
+            el.classList.add('tap-active');
+        }, { passive: true });
+
+        el.addEventListener('touchend', () => {
+            el.classList.remove('tap-active');
+        }, { passive: true });
+
+        el.addEventListener('touchcancel', () => {
+            el.classList.remove('tap-active');
+        }, { passive: true });
+
+        // 2. Magnetic Hover Effect (Only for non-touch devices)
+        if (!isTouchDevice) {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                const strength = 12;
+                const moveX = x / strength;
+                const moveY = y / strength;
+                
+                if (el.classList.contains('product-card')) {
+                    el.style.transform = `translate(${moveX}px, ${moveY - 12}px)`;
+                } else {
+                    el.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                }
+            });
+
+            el.addEventListener('mouseleave', () => {
+                el.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                el.style.transform = '';
+                document.body.classList.remove('cursor-hover');
+            });
+
+            el.addEventListener('mouseenter', () => {
+                document.body.classList.add('cursor-hover');
+            });
+        }
     });
 
-    const animateCursor = () => {
-        // Smoothly follow for dot (faster)
-        dotX += (mouseX - dotX) * 0.8;
-        dotY += (mouseY - dotY) * 0.8;
-        
-        cursorDot.style.left = `${dotX}px`;
-        cursorDot.style.top = `${dotY}px`;
+    // 3. Mobile Product Card Tap-to-Reveal
+    if (isTouchDevice) {
+        const productCards = document.querySelectorAll('.product-card');
+        productCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                // If the user taps the "View Product" button, let it bubble up to its own handler
+                if (e.target.closest('.view-product-btn')) return;
 
-        // Smoothly follow for outline (slightly slower but fast)
-        const distX = mouseX - outlineX;
-        const distY = mouseY - outlineY;
-
-        outlineX += distX * speed;
-        outlineY += distY * speed;
-
-        cursorOutline.style.left = `${outlineX}px`;
-        cursorOutline.style.top = `${outlineY}px`;
-
-        // Subtle Mouse-Parallax for Hero Blobs - moved here for performance
-        heroBlobs.forEach((blob, index) => {
-            const factor = (index + 1) * 35; // Increased factor for more subtle movement
-            const x = (mouseX - window.innerWidth / 2) / factor;
-            const y = (mouseY - window.innerHeight / 2) / factor;
-            
-            blob.style.transform = `translate(${x}px, ${y}px)`;
+                // Toggle the tap-reveal class
+                const isRevealed = card.classList.contains('tap-reveal');
+                
+                // Close all other cards first
+                productCards.forEach(c => c.classList.remove('tap-reveal'));
+                
+                if (!isRevealed) {
+                    card.classList.add('tap-reveal');
+                    e.preventDefault(); // Prevent accidental navigation if it were a link
+                }
+            });
         });
 
-        requestAnimationFrame(animateCursor);
-    };
-    animateCursor();
-
-    // 2. Magnetic Hover Effect
-    const magnetics = document.querySelectorAll('a, button, .product-card');
-    magnetics.forEach(el => {
-        el.addEventListener('mousemove', (e) => {
-            const rect = el.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            
-            // Only update transform if absolutely necessary
-            const strength = 12; // Adjusted for a punchier feel
-            const moveX = x / strength;
-            const moveY = y / strength;
-            
-            if (el.classList.contains('product-card')) {
-                el.style.transform = `translate(${moveX}px, ${moveY - 12}px)`;
-            } else {
-                el.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        // Close revealed card if tapping outside
+        document.addEventListener('touchstart', (e) => {
+            if (!e.target.closest('.product-card')) {
+                productCards.forEach(c => c.classList.remove('tap-reveal'));
             }
-        });
-
-        el.addEventListener('mouseleave', () => {
-            // Re-enable transition for smooth reset
-            el.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-            el.style.transform = '';
-            document.body.classList.remove('cursor-hover');
-        });
-
-        el.addEventListener('mouseenter', () => {
-            document.body.classList.add('cursor-hover');
-        });
-    });
+        }, { passive: true });
+    }
 
     // --- Parallax & Reveal Animation ---
     const aboutSection = document.getElementById('about');
@@ -112,8 +163,8 @@ document.addEventListener('DOMContentLoaded', () => {
     reveals.forEach(reveal => revealObserver.observe(reveal));
 
     // --- Stats Count-Up Animation ---
-    const statsSection = document.getElementById('authority');
-    const statsElements = document.querySelectorAll('[data-count]');
+    const statsSection = document.getElementById('brand-statement');
+    const statsElements = statsSection?.querySelectorAll('[data-count]') || [];
     
     const countUp = (el) => {
         const target = parseInt(el.getAttribute('data-count'));
@@ -171,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Hero Parallax
         if (parallaxContent && scrolled < viewHeight) {
-            parallaxContent.style.transform = `translateY(${scrolled * 0.3}px)`;
+            parallaxContent.style.transform = `translate3d(0, ${scrolled * 0.3}px, 0)`;
             parallaxContent.style.opacity = 1 - (scrolled / (viewHeight * 0.8));
         }
 
@@ -185,10 +236,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const scrollPercent = relativeScroll / (viewHeight + sectionHeight);
                 
                 const bgMove = (scrollPercent * 150) - 75;
-                if (aboutBg) aboutBg.style.transform = `translateY(${bgMove}px)`;
+                if (aboutBg) aboutBg.style.transform = `translate3d(0, ${bgMove}px, 0)`;
                 
                 const textMove = (scrollPercent * 50) - 25;
-                if (aboutText) aboutText.style.transform = `translateY(${textMove}px)`;
+                if (aboutText) aboutText.style.transform = `translate3d(0, ${textMove}px, 0)`;
             }
         }
 
@@ -201,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const relativeScroll = scrolled + viewHeight - sectionTop;
                 const scrollPercent = relativeScroll / (viewHeight + sectionHeight);
                 const move = (scrollPercent * 40) - 20;
-                processVideo.style.transform = `translateY(${move}px)`;
+                processVideo.style.transform = `translate3d(0, ${move}px, 0)`;
             }
         }
 
