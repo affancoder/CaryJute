@@ -15,7 +15,7 @@
     border-radius: 50%;
     z-index: 9999;
     pointer-events: none;
-    transition: width 0.3s, height 0.3s, background-color 0.3s;
+    will-change: left, top;
 }
 
 .cursor-outline {
@@ -29,7 +29,7 @@
     border-radius: 50%;
     z-index: 9998;
     pointer-events: none;
-    transition: width 0.3s, height 0.3s, border 0.3s, background-color 0.3s;
+    will-change: left, top;
 }
 
 /* Hover State */
@@ -121,13 +121,37 @@
 }
 
 /* Smooth Hover & Transitions Global */
-a, button, .product-card, .nav-link, .cursor-dot, .cursor-outline, .animate-blob {
+a, button, .product-card, .nav-link, .animate-blob, .animate-float {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.cursor-dot, .cursor-outline {
+    /* Transitions only for scale/color, NOT for position */
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                height 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                background-color 0.3s ease, 
+                border 0.3s ease, 
+                opacity 0.3s ease;
+}
+
 /* Magnetic Element Reset */
-a, button, .product-card {
+a, button, .product-card, .video-parallax {
     will-change: transform;
+}
+
+/* Floating Animation */
+@keyframes float-slow {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-20px) rotate(1deg); }
+}
+
+.animate-float {
+    animation: float-slow 8s ease-in-out infinite;
+}
+
+/* Video Parallax Container */
+.video-parallax {
+    transition: transform 0.1s ease-out;
 }
 
 /* Reveal Animation Refined */
@@ -205,6 +229,11 @@ a, button, .product-card {
     scrollbar-width: none;
 }
 
+/* Stats Number Refinement */
+[data-count] {
+    font-variant-numeric: tabular-nums;
+}
+
 /* Product Card Custom Shadow */
 .product-card:hover {
     transform: translateY(-12px);
@@ -212,4 +241,35 @@ a, button, .product-card {
 
 .product-card {
     will-change: transform;
+}
+
+/* Product Modal & Zoom Effect */
+#product-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#product-modal.active #modal-content {
+    transform: scale(1);
+}
+
+.cursor-zoom-in {
+    cursor: zoom-in;
+}
+
+.cursor-zoom-out {
+    cursor: zoom-out;
+}
+
+#modal-image.zoomed {
+    transform: scale(1.5);
+}
+
+#zoom-overlay.active {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Hide body scroll when modal is open */
+body.modal-open {
+    overflow: hidden;
 }
